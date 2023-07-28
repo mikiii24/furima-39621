@@ -14,41 +14,55 @@
 ### Association
 
 - has_many :items
-- has_one :shipping_info
+- has_many :orders
 
 ## items テーブル
 
-| Column              | Type       | Options                        |
-| ------------------- | ---------- | ------------------------------ |
-| name                | text       | null: false                    |
-| info                | text       | null: false                    |
-| category            | string     | null: false                    |
-| sales_status        | string     | null: false                    |
-| shipping_fee_status | string     | null: false                    |
-| prefecture          | string     | null: false                    |
-| scheduled_delivery  | string     | null: false                    |
-| price               | integer    | null: false                    |
-| user                | references | null: false, foreign_key: true |
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| name                   | string     | null: false                    |
+| info                   | text       | null: false                    |
+| category_id            | integer    | null: false                    |
+| sales_status_id        | integer    | null: false                    |
+| shipping_fee_status_id | integer    | null: false                    |
+| prefecture_id          | integer    | null: false                    |
+| scheduled_delivery_id  | integer    | null: false                    |
+| price                  | integer    | null: false                    |
+| user                   | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one :shipping_info
+- has_one :order
 
 ## shipping_infos テーブル
 
-| Column              | Type       | Options                        |
-| ------------------- | ---------- | ------------------------------ |
-| postal_code         | string     | null: false                    |
-| shipping_prefecture | string     | null: false                    |
-| city                | text       | null: false                    |
-| addresses           | text       | null: false                    |
-| building            | text       | null: false                    |
-| phone_number        | string     | null: false                    |
-| item                | references | null: false, foreign_key: true |
-| user                | references | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| addresses     | string     | null: false                    |
+| building      | string     |                                |
+| phone_number  | string     | null: false                    |
+| order         | references | null: false, foreign_key: true |
+
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
+- has_many :orders
+
+## shipping_infos テーブル
+
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| item                   | references | null: false, foreign_key: true |
+| user                   | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- belongs_to :shopping_info
