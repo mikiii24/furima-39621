@@ -50,11 +50,9 @@
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
-- has_many :orders
+- has_one :order
 
-## shipping_infos テーブル
+## orders テーブル
 
 | Column                 | Type       | Options                        |
 | ---------------------- | ---------- | ------------------------------ |
@@ -65,4 +63,4 @@
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :shopping_info
+- has_one :shopping_info
