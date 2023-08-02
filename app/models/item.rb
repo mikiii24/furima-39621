@@ -10,11 +10,17 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   validates :name, presence: true
+  validates :image, presence: true
   validates :item_info, presence: true
   validates :category_id, numericality: { other_than: 0 , message: "can't be blank" }
   validates :sales_status_id, numericality: { other_than: 0 , message: "can't be blank" }
   validates :shipping_fee_status_id, numericality: { other_than: 0 , message: "can't be blank" }
   validates :prefecture_id, numericality: { other_than: 0 , message: "can't be blank" }
   validates :scheduled_delivery_id, numericality: { other_than: 0 , message: "can't be blank" }
-  validates :price, presence: true
+  validates :price, presence: true, numericality: {
+    greater_than_or_equal_to: 300,
+    less_than_or_equal_to: 9999999,
+    message: "is out of setting range"
+  }
+  validates :price, numericality: { with: /\A[0-9]+\z/, message: "is invalid. Input half-width characters" }
 end
