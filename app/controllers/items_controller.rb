@@ -21,6 +21,12 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @shipping_fee_statuses = ShippingFeeStatus.all
+    @user = @item.user
+    @categories = Category.all
+    @sales_statuses = SalesStatus.all
+    @prefectures = Prefecture.all
+    @scheduled_deliveries = ScheduledDelivery.all
   end
 
   private
