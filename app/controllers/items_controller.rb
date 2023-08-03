@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.includes(:user).order("created_at DESC")
+    @shipping_fee_statuses = ShippingFeeStatus.all
   end
 
   def new
