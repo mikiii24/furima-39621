@@ -7,7 +7,7 @@ app/assets/stylesheets/items/new.css %>
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with model: @item do |f| %>
+    <%= form_with(model: @item, local: true) do |f| %>
 
     <%= render 'shared/error_messages', model: f.object %>
 
@@ -50,7 +50,7 @@ app/assets/stylesheets/items/new.css %>
           カテゴリー
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:category_id, Category.all, :id, :name, { prompt: " --- " }, {class:"select-box", id:"item-category"}) %>
+       <%= f.collection_select(:category_id, Category.all, :id, :name, { prompt: " --- " }, {class:"select-box", id:"item-category"}) %>
         <div class="weight-bold-text">
           商品の状態
           <span class="indispensable">必須</span>
@@ -80,7 +80,6 @@ app/assets/stylesheets/items/new.css %>
         <div class="weight-bold-text">
           発送までの日数
           <span class="indispensable">必須</span>
-        </div>
         </div>
         <%= f.collection_select(:scheduled_delivery_id, ScheduledDelivery.all, :id, :name, { prompt: " --- " }, {class:"select-box", id:"item-scheduled-delivery"}) %>
       </div>
@@ -140,7 +139,7 @@ app/assets/stylesheets/items/new.css %>
     <%# 下部ボタン %>
     <div class="sell-btn-contents">
       <%= f.submit "変更する" ,class:"sell-btn" %>
-      <%=link_to 'もどる', root_path, class:"back-btn" %>
+      <%=link_to 'もどる', item_path(@item.id), class:"back-btn" %>
     </div>
     <%# /下部ボタン %>
   </div>
