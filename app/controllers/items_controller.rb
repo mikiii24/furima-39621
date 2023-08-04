@@ -29,6 +29,10 @@ class ItemsController < ApplicationController
     @scheduled_deliveries = ScheduledDelivery.all
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
   private
 
   def item_params
