@@ -44,6 +44,7 @@ class ItemsController < ApplicationController
   def destroy
     item = Item.find(params[:id])
     item.destroy
+    redirect_to root_path
   end
 
   private
@@ -55,9 +56,9 @@ class ItemsController < ApplicationController
 
   def move_to_index
     @item = Item.find(params[:id])
-    unless @item.user == current_user
-      redirect_to action: :index
-    end
+    return if @item.user == current_user
+
+    redirect_to action: :index
   end
 
   def find_params
