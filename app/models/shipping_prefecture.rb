@@ -50,5 +50,5 @@ class ShippingPrefecture < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :order_addresses
+  has_many :addresses
 end

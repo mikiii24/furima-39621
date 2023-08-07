@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   def index
-  end
-
-  def create
+    @item = Item.find(params[:item_id])
+    @shipping_fee_statuses = ShippingFeeStatus.all
+    @order_address = OrderAddress.new
   end
 end
