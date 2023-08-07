@@ -13,4 +13,9 @@ class OrderAddress
   validates :city, presence: true
   validates :addresses, presence: true
   validates :phone_number, presence: true, numericality: { only_integer: true, message: 'is invalid. Input half-width characters' }
+
+  def save
+    order = Order.create(item_id: item_id, user_id: user_id)
+    Address.create(postal_code: postal_code, shipping_prefecture_id: shipping_prefecture_id, city: city, addresses: addresses, building: building, phone_number: phone_number, order_id: order.id)
+  end
 end
