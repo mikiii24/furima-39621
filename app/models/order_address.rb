@@ -10,6 +10,8 @@ class OrderAddress
   validates :city, presence: true
   validates :addresses, presence: true
   validates :phone_number, presence: true, numericality: { only_integer: true, message: 'is invalid. Input half-width characters' }
+  validates :phone_number, length: { minimum: 10, message: 'is too short'}
+  validates :phone_number, length: { maximum: 11, message: 'is too long'}
 
   def save
     if valid?

@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @item = Item.find(params[:item_id])
     @shipping_fee_statuses = ShippingFeeStatus.all
@@ -6,7 +8,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    binding.pry
     @order_address = OrderAddress.new(order_address_params)
     if @order_address.save
       redirect_to root_path
