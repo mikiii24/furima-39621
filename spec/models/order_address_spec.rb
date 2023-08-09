@@ -54,9 +54,13 @@ RSpec.describe OrderAddress, type: :model do
       end
       it '電話番号が11桁より大きい場合では購入できない' do
         @order_address.phone_number = '0901234567890'
-        binding.pry
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number is too long")
+      end
+      it 'tokenが空では購入できない' do
+        @order_address.token = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
