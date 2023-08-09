@@ -16,7 +16,7 @@
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        <%= @item.price %>
+        <%= @item.price %>円
       </span>
       <span class="item-postage">
         <% shipping_fee_status = @shipping_fee_statuses.find { |status| status.id == @item.shipping_fee_status_id } %>
