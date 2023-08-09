@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :move_to_root_path
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -31,5 +32,12 @@ class OrdersController < ApplicationController
   private
   def order_address_params
     params.require(:order_address).permit(:postal_code, :shipping_prefecture_id, :city, :addresses, :building, :phone_number).merge(token: params[:token], item_id: params[:item_id], user_id: current_user.id)
+  end
+  
+  def move_to_root_path
+    item = Item.find(params[:item_id])
+    if item.order || item.user_id == current_user.id
+      redirect_to root_path
+    end
   end
 end
