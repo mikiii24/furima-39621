@@ -13,7 +13,6 @@ class OrdersController < ApplicationController
     @order_address = OrderAddress.new(order_address_params)
     @item = Item.find(params[:item_id])
     if @order_address.valid?
-      binding.pry
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
         amount: Item.find(params[:item_id]).price,
@@ -23,6 +22,7 @@ class OrdersController < ApplicationController
       @order_address.save
       return redirect_to root_path
     else
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       @item = Item.find(params[:item_id])
       @shipping_fee_statuses = ShippingFeeStatus.all
       render :index, status: :unprocessable_entity
