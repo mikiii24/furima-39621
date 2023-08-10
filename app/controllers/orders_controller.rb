@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :move_to_root_path
-  before_action :find_params only: [:index, :create]
+  before_action :find_params, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -22,7 +22,6 @@ class OrdersController < ApplicationController
       return redirect_to root_path
     else
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-      @item = Item.find(params[:item_id])
       @shipping_fee_statuses = ShippingFeeStatus.all
       render :index, status: :unprocessable_entity
     end
