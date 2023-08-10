@@ -1,10 +1,11 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :move_to_root_path
   before_action :find_params, only: [:index, :create]
+  before_action :move_to_root_path
+  before_action :set_public_key, only: [:index, :create]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    
     @shipping_fee_statuses = ShippingFeeStatus.all
     @order_address = OrderAddress.new
   end
@@ -21,7 +22,6 @@ class OrdersController < ApplicationController
       @order_address.save
       return redirect_to root_path
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       @shipping_fee_statuses = ShippingFeeStatus.all
       render :index, status: :unprocessable_entity
     end
@@ -37,9 +37,12 @@ class OrdersController < ApplicationController
   end
   
   def move_to_root_path
-    item = Item.find(params[:item_id])
-    if item.order || item.user_id == current_user.id
+    if @item.order || @item.user_id == current_user.id
       redirect_to root_path
     end
+  end
+
+  def set_public_key
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
   end
 end
