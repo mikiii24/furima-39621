@@ -60,9 +60,12 @@ class ItemsController < ApplicationController
 
   def move_to_index
     @item = Item.find(params[:id])
-    return if @item.user == current_user
+    if @item.order
+      redirect_to action: :index
+    elsif @item.user != current_user
 
-    redirect_to action: :index
+      redirect_to action: :index
+    end
   end
 
   def find_params
