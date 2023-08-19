@@ -21,4 +21,9 @@ class Item < ApplicationRecord
   validates :price, presence: true,
                     numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'is out of setting range' }
   validates :price, numericality: { only_integer: true, message: 'is invalid. Input half-width characters' }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
+  end
+
 end
