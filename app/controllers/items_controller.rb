@@ -56,9 +56,17 @@ class ItemsController < ApplicationController
   end
 
   def search
+    if params[:q]&.dig(:name)
+      squished_keywords = params[:q][:name].squish
+      params[:q][:name_cont_any] = squished_keywords.split(" ")
+    end
     @q = Item.ransack(params[:q])
     @items = @q.result
     @shipping_fee_statuses = ShippingFeeStatus.all
+    search_keyword = params[:q][:name] if params[:q]&.dig(:name)
+    if search_keyword == ''
+      redirect_to root_path
+    end
   end
 
   private
@@ -73,7 +81,6 @@ class ItemsController < ApplicationController
     if @item.order
       redirect_to action: :index
     elsif @item.user != current_user
-
       redirect_to action: :index
     end
   end

@@ -94,3 +94,7 @@
 }
 
 /* //検索商品一覧 */
+
+.search-error{
+  font-size: 18px;
+}

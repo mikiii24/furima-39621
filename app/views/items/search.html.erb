@@ -30,6 +30,10 @@
             <% end %>
           </li>
         <% end %>
+      <% else %>
+        <p class='search-error'>
+          <%= params[:q][:name] %>の検索に一致する商品はありません。
+        </p>
       <% end %>
     </ul>
   </div>
