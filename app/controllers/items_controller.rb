@@ -5,6 +5,8 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
+    @q = Item.ransack(params[:q])
+    @items = @q.result
     @shipping_fee_statuses = ShippingFeeStatus.all
   end
 
@@ -22,6 +24,8 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @q = Item.ransack(params[:q])
+    @items = @q.result
     @shipping_fee_statuses = ShippingFeeStatus.all
     @user = @item.user
     @categories = Category.all
@@ -49,6 +53,12 @@ class ItemsController < ApplicationController
     else
       redirect_to root_path
     end
+  end
+
+  def search
+    @q = Item.ransack(params[:q])
+    @items = @q.result
+    @shipping_fee_statuses = ShippingFeeStatus.all
   end
 
   private
