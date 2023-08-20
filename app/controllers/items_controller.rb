@@ -64,9 +64,10 @@ class ItemsController < ApplicationController
     @items = @q.result
     @shipping_fee_statuses = ShippingFeeStatus.all
     search_keyword = params[:q][:name] if params[:q]&.dig(:name)
-    if search_keyword == ''
+    if search_keyword.blank?
       redirect_to root_path
     end
+
   end
 
   private
